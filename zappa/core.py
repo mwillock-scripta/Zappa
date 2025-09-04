@@ -556,12 +556,13 @@ class Zappa:
             venv = self.get_current_venv()
 
         build_time = str(int(time.time()))
+        uuid_str = str(uuid.uuid4)
         cwd = os.getcwd()
         if not output:
             if archive_format == "zip":
-                archive_fname = prefix + "-" + build_time + ".zip"
+                archive_fname = prefix + "-" + build_time + uuid_str + ".zip"
             elif archive_format == "tarball":
-                archive_fname = prefix + "-" + build_time + ".tar.gz"
+                archive_fname = prefix + "-" + build_time + uuid_str + ".tar.gz"
         else:
             archive_fname = output
         archive_path = os.path.join(cwd, archive_fname)
