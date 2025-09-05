@@ -232,6 +232,7 @@ ZIP_EXCLUDES = [
     "docutils*",
     "setuputils*",
     "__pycache__/*",
+    "handler_venv-*",  # Make sure other builds hander_venv don't get added
 ]
 
 # When using ALB as an event source for Lambdas, we need to create an alias
@@ -437,7 +438,8 @@ class Zappa:
         current_venv = self.get_current_venv()
 
         # Make a new folder for the handler packages
-        ve_path = os.path.join(os.getcwd(), "handler_venv")
+        postfix = str(uuid.uuid4())
+        ve_path = os.path.join(os.getcwd(), f"handler_venv-{postfix}")
 
         if os.sys.platform == "win32":
             current_site_packages_dir = os.path.join(current_venv, "Lib", "site-packages")
